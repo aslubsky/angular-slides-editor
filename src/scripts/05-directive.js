@@ -96,6 +96,10 @@ app.directive('slidesEditorObject', ['$compile', '$q', '$parse',
                     this.style.top = (layerY - objLayerY) + 'px';
                     this.style.opacity = '1';  // this / e.target is the source node.
                 });
+
+
+
+
             }
         }
     }
