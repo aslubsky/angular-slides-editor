@@ -98,6 +98,20 @@ app.directive('slidesEditorObject', ['$compile', '$q', '$parse',
                 });
 
 
+                element.find('.object-expand-point').on('dragstart', function (e) {
+                    /*objLayerX = e.layerX;
+                    objLayerY = e.layerY;*/
+
+                    console.log('dragstart', e);
+                    e.dataTransfer.effectAllowed = 'move';  // See the section on the DataTransfer object.
+                    //e.dataTransfer.effectAllowed = 'move';  // See the section on the DataTransfer object.
+                    //this.style.opacity = '0.8';  // this / e.target is the source node.
+                    //this.style.top = e.clientY+'px';
+                    //this.style.left = e.clientX+'px';
+                    e.dataTransfer.setData('Text', '22222'); // required otherwise doesn't work
+
+                    //console.log(e.clientX, e.layerX, e.pageX);
+                });
 
 
             }
