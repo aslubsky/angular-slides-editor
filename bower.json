@@ -1,0 +1,17 @@
+{
+  "name": "angular-slides-editor",
+  "version": "0.1.0",
+  "main": [
+    "./dist/angular-slides-editor.min.js",
+    "./dist/angular-slides-editor.min.css"
+  ],
+  "ignore": [
+    "src"
+  ],
+  "dependencies": {
+    "angular": "~1"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1"
+  }
+}
