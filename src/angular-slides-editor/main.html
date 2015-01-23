@@ -1,0 +1,455 @@
+<div class="ng-cloak angular-slides-editor">
+    <!--<div class="preview-container">-->
+        <!--<div class="slide preview" ng-style="{'background-image':'url('+slideBackgroundImage+')', 'background-size': slideBackgroundSize, 'background-color': slideBackgroundColor}">-->
+            <!--<a href="" title="{{'На весь экран'|translate}}" ng-click="fullScreen()" class="full-screen btn btn-default btn-lg">-->
+                <!--<i class="fa fa-pencil"></i>-->
+            <!--</a>-->
+            <!--<div class="canvas-wrapper">-->
+                <!--<canvas id="fabric-canvas" width="960" height="700"></canvas>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="editor-container" ng-style="{'background-image':'url('+slideBackgroundImage+')', 'background-size': slideBackgroundSize, 'background-color': slideBackgroundColor}">
+        <div class="side-bar">
+            <div class="global-controls">
+                <div class="col-xs-3">
+                    <a href="" ng-click="back()" class="btn-back">
+                        <i class="fa fa-arrow-circle-o-left"></i>
+                    </a>
+                </div>
+                <div class="col-xs-9">
+                    <div class="actions-set" ng-show="!hideInstruments">
+                        <label>{{'Действия'|translate}}:</label>
+                        <div class="btn-ctrl actions">
+                            <a href="" title="{{'Отменить'|translate}}" class=""
+                               ng-click="actionReplay('undo')">
+                                <i class="fa fa-history"></i>
+                            </a>
+                            <a class="btn-ctrl actions" href="" bz-confirm="removeSlide()" message="'Удалить слайд ?'|translate"
+                               title="{{'Удалить слайд ?'|translate}}" class=""><i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                    <div class="actions-set" ng-show="hideInstruments">
+                        <label>{{'Действия'|translate}}:</label>
+                        <div class="btn-ctrl actions">
+                            <a href="" title="{{'Отменить'|translate}}" class=""
+                               ng-click="actionReplay('undo')">
+                                <i class="fa fa-history"></i>
+                            </a>
+                            <a href="" title="{{'Дублировать'|translate}}" class=""
+                               ng-click="duplicate()">
+                                <i class="fa fa-files-o"></i>
+                            </a>
+                            <a href="" title="{{'Удалить'|translate}}" class=""
+                               ng-click="removeCurrent()">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="actions-set" ng-show="hideInstruments">
+                        <label>{{'Глубина'|translate}}:</label>
+                        <div class="btn-ctrl actions">
+                            <a href="" title="{{'На передний план'|translate}}" class=""
+                               ng-click="bringToFront()">
+                                <i class="fa fa-arrow-up"></i>
+                            </a>
+                            <a href="" title="{{'На задний план'|translate}}" class=""
+                               ng-click="sendToBack()">
+                                <i class="fa fa-arrow-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <ul ng-show="!hideInstruments" class="instruments btn-ctrl">
+                <li>
+                    <a href="" class="main-control" ng-click="addText()">
+                        <i class="fa">T</i><br/>{{'Текст'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="imageSrc = '/themes/default/assets/img/resources/default-image.png'; addImage(imageSrc)" href="" class="main-control">
+                        <i class="fa fa-picture-o"></i><br/>{{'Изображение'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="imageSrc = '/themes/default/assets/img/resources/default-image.png'; addImage(imageSrc)" href="" class="main-control">
+                        <i class="fa fa-leaf"></i><br/>{{'SVG'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="main-control" ng-click="addRect()">
+                        <i class="fa fa-square"></i><br/>{{'Прямоугольник'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="main-control" ng-click="addCircle()">
+                        <i class="fa fa-circle"></i><br/>{{'Круг'|translate}}
+                    </a>
+                </li>
+                <!--<li>-->
+                <!--<a href="" class="main-control" ng-click="addTriangle()">-->
+                <!--<i class="fa-triangle"></i><br/>{{'Треугольник'|translate}}-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="" class="main-control" ng-click="addLine()">-->
+                <!--<i class="fa-line"></i><br/>{{'Линия'|translate}}-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<button type="button" class="btn btn-default polygon" ng-click="addPolygon()">Polygon</button>-->
+            </ul>
+
+
+            <div ng-show="hideInstruments" class="object-parameters">
+                <div class="global-parameters" ng-show="figuresCtrl">
+                    <!--<div ng-show="objectType == 'line'" class="form-group col-lg-9">-->
+                    <!--<label for="text-stroke-width">{{'Толщина линий'|translate}}:</label>-->
+                    <!--<input type="range" value="1" min="1" max="5" id="text-stroke-width" class="form-control"-->
+                    <!--ng-model="strokeWidth">-->
+                    <!--</div>-->
+                    <div class="form-group col-lg-12 range-control">
+                        <label for="opacity">{{'Прозрачность'|translate}}:</label>
+                        <input id="opacity" value="100" min="0" step="1" max="100" type="range" ng-model="opacity">
+                        <span class="value">{{opacity}} %</span>
+                    </div>
+                    <div class="form-group col-lg-12 color-picker-control">
+                        <label>{{'Цвет заливки'|translate}}:
+                            <input type="color" value="" id="fill-color" size="10" class="form-control"
+                                   ng-model="fill">
+                            <div class="btn-ctrl">
+                                <a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="fill = '#000000'">
+                                    <i class="fa fa-undo"></i>
+                                </a>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div ng-show="imageCtrl">
+                    <div ng-show="isDefaultImage()">
+                        <div class="form-group col-xs-12">
+                            <label>{{'Изображение'|translate}}:</label>
+                            <div bz-uploader="$config.resource('/pages?action=upload')" text="{{uploaderText}}"
+                                 ng-model="page.files" autoupload="true" errors="errors">
+
+                                <div class="alert alert-danger" ng-repeat="error in errors" ng-switch on="error.code">
+                                                        <span ng-switch-when="8">
+                                                            {{'Неверный формат файла. Разрешенные форматы'|translate}}:
+                                                            <span ng-repeat="ext in error.allowed_extensions">{{ext}}<span ng-if="!$last">,</span> </span>
+                                                        </span>
+                                    <span ng-switch-when="1">{{'Перевышен лимит рамера файла'|translate}}</span>
+                                    <div ng-switch-default>{{'Ошибка загрузки'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="!isDefaultImage()">
+                        <div class="form-group col-xs-12">
+                            <label>{{'Изображение'|translate}}:</label>
+                            <div class="gallery">
+                                <div class="item">
+                                    <a target="_blank" href="" ng-href="{{imageSrc}}">
+                                        <img width="80px" ng-src="{{imageSrc}}"/>
+                                    </a>
+                                    <div class="details">
+                                        <a class="action" title="{{'Удалить'|translate}}" ng-click="imageSrc='/themes/default/assets/img/resources/default-image.png'" href="">
+                                            <i class="fa fa-trash-o"></i></a>
+                                        <a target="_blank" class="action" href="" ng-href="{{imageSrc}}">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="textCtrl">
+                    <div class="">
+                        <div class="pull-left btn-ctrl text-controls-additional">
+                            <a href="" title="{{'Жирный'|translate}}" class=""
+                               ng-click="fontWeight = fontWeight == 'bold' ? '' : 'bold'"
+                               ng-class="{'enabled': fontWeight == 'bold'}">
+                                <i class="fa fa-bold"></i>
+                            </a>
+                            <a href="" title="{{'Курсив'|translate}}" class="" id="text-cmd-italic"
+                               ng-click="fontStyle = fontStyle == 'italic' ? '' : 'italic'"
+                               ng-class="{'enabled': fontStyle == 'italic'}">
+                                <i class="fa fa-italic"></i>
+                            </a>
+                            <a href="" title="{{'Подчерктнутый'|translate}}" class="" id="text-cmd-underline"
+                               ng-click="toggleUnderline()"
+                               ng-class="{'enabled': isUnderline()}">
+                                <i class="fa fa-underline"></i>
+                            </a>
+                            <a href="" title="{{'Зачерктнутый'|translate}}" class="" id="text-cmd-linethrough"
+                               ng-click="toggleLinethrough()"
+                               ng-class="{'enabled': isLinethrough()}">
+                                <i class="fa fa-strikethrough"></i>
+                            </a>
+                        </div>
+                        <div class="pull-right btn-ctrl text-controls-additional">
+                            <a href="" title="{{'Текст по левому краю'|translate}}" class=""
+                               ng-click="textAlign = 'left'"
+                               ng-class="{'enabled': textAlign == 'left'}">
+                                <i class="fa fa-align-left"></i>
+                            </a>
+                            <a href="" title="{{'Текст по центру'|translate}}" class=""
+                               ng-click="textAlign = 'center'"
+                               ng-class="{'enabled': textAlign == 'center'}">
+                                <i class="fa fa-align-center"></i>
+                            </a>
+                            <a  href="" title="{{'Текст по правому краю'|translate}}" class=""
+                                ng-click="textAlign = 'right'"
+                                ng-class="{'enabled': textAlign == 'right'}">
+                                <i class="fa fa-align-right"></i>
+                            </a>
+                            <a href="" title="{{'Текст по ширине'|translate}}" class=""
+                               ng-click="textAlign = 'justify'"
+                               ng-class="{'enabled': textAlign == 'justify'}">
+                                <i class="fa fa-align-justify"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-12 font-select">
+                        <div class="input-group">
+                            <div class="input-group-addon font-icon">A</div>
+                            <select id="font-family" class="form-control " ng-model="fontFamily">
+                                <option value="arial">Arial</option>
+                                <option value="helvetica" selected>Helvetica</option>
+                                <option value="delicious">Delicious</option>
+                                <option value="verdana">Verdana</option>
+                                <option value="georgia">Georgia</option>
+                                <option value="courier">Courier</option>
+                                <option value="sans-serif">Sans-Serif</option>
+                                <option value="comic sans ms">Comic Sans MS</option>
+                                <option value="impact">Impact</option>
+                                <option value="times new roman">Times New Roman</option>
+                                <option value="trebuchet ms">Trebuchet MS</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-12 color-picker-control">
+                        <label>{{'Цвет текста'|translate}}:
+                            <input type="color" value="" id="text-lines-bg-color" size="10" class="form-control"
+                                   ng-model="textFill">
+                            <div class="btn-ctrl">
+                                <a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="textFill = '#000000'">
+                                    <i class="fa fa-undo"></i>
+                                </a>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="form-group col-lg-12 color-picker-control">
+                        <label>{{'Цвет заливки'|translate}}:
+                            <input type="color" value="" id="text-stroke-bg-color" size="10" class="form-control"
+                                   ng-model="backgroundColor">
+                            <div class="btn-ctrl">
+                                <a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="backgroundColor = ''">
+                                    <i class="fa fa-undo"></i>
+                                </a>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="form-group col-lg-12 range-control">
+                        <label for="text-font-size">{{'Размер шрифта'|translate}}:</label>
+                        <input type="range" value="" min="1" max="120" step="1" id="text-font-size"
+                               class=""
+                               ng-model="fontSize">
+                        <span class="value"><input type="text" class="" ng-model="fontSize"> px</span>
+                    </div>
+                    <div class="form-group col-lg-12 range-control">
+                        <label for="text-line-height">{{'Интервал'|translate}}:</label>
+                        <input type="range" value="" min="0" max="10" step="0.1" id="text-line-height"
+                               class=""
+                               ng-model="lineHeight">
+                        <span class="value"><input type="text" class="" ng-model="lineHeight"></span>
+                    </div>
+                    <div class="form-group col-lg-12 range-control">
+                        <label for="text-padding">{{'Отступ'|translate}}:</label>
+                        <input type="range" value="" min="0" max="100" step="1" id="text-padding"
+                               class=""
+                               ng-model="padding">
+                        <span class="value"><input type="text" class="" ng-model="padding"> px</span>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-12 scale-control">
+                    <label>{{'Масштаб'|translate}}:</label>
+                    <div class="scales">
+                        <div class="scale">
+                            <label>X:</label>
+                            <input type="text" min="1" class="value" ng-model="selectedObjectScaleX"> %
+                        </div>
+                        <div class="scale">
+                            <label>Y:</label>
+                            <input type="text" min="1" class="value" ng-model="selectedObjectScaleY"> %
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="clearfix"></div>-->
+            <!--<div id="history-container" class="history-container">-->
+            <!--&lt;!&ndash;<a href="" ng-click="printProfiles()">printProfiles</a>&ndash;&gt;-->
+            <!--<label>{{'История'|translate}}:</label>-->
+            <!--<div class="">-->
+            <!--<ul class="list-unstyled" style="overflow-y: auto;" ng-style="{height: getHistoryHeight()}">-->
+            <!--<li ng-class="{'active': i == canvasHistoryCurrentStep}" ng-repeat="(i,h) in getHistory()">-->
+            <!--<a href="" ng-click="loadHistory(i)">-->
+            <!--<img style="border: 1px solid #fff" width="48px" ng-src="{{getHistoryScreenShot(h)}}"/>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+
+
+        <div class="editor">
+            <!--slideBackgroundImage: {{slideBackgroundImage}},-->
+            <!--slideBackgroundSize: {{slideBackgroundSize}},-->
+            <!--slideBackgroundColor: {{slideBackgroundColor}}-->
+            <!--<br>-->
+            <!--V: {{currentVSlide}} ({{slidesVCount}}) | H: {{currentHSlide}} ({{slidesHCount}})-->
+            <div class="slides">
+                <!--<section class="h-slides" ng-repeat="vSlides in slides">-->
+                    <!--&lt;!&ndash;<section ng-if="vSlides.length > 0" class="v-slides" ng-repeat="side in vSlides">&ndash;&gt;-->
+                    <!--&lt;!&ndash;naviation&ndash;&gt;-->
+                    <!--&lt;!&ndash;</section>&ndash;&gt;-->
+                    <!--<h1>Reveal.js</h1>-->
+                    <!--<h3>The HTML Presentation Framework</h3>-->
+                    <!--<p>-->
+                        <!--<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>-->
+                    <!--</p>-->
+                <!--</section>-->
+                <!--<section class="h-slides" ng-repeat="vSlides in slides">-->
+                    <!--&lt;!&ndash;<section ng-if="vSlides.length > 0" class="v-slides" ng-repeat="side in vSlides">&ndash;&gt;-->
+                    <!--&lt;!&ndash;naviation&ndash;&gt;-->
+                    <!--&lt;!&ndash;</section>&ndash;&gt;-->
+                    <!--<h1>Reveal.js</h1>-->
+                    <!--<h3>The HTML Presentation Framework</h3>-->
+                    <!--<p>-->
+                        <!--<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>-->
+                    <!--</p>-->
+                <!--</section>-->
+            </div>
+
+
+            <div class="slide">
+                <div class="canvas-wrapper">
+
+                    <div slides-editor-object draggable="true" style="z-index: 4;background-color: red; width: 100px; height: 100px; position: absolute; left: 10px; top: 50px">
+                        <div class="object-expand-point tl"></div>
+                        <div class="object-expand-point ml"></div>
+                        <div class="object-expand-point bl"></div>
+                        <div class="object-expand-point tc"></div>
+                        <div class="object-expand-point mc"></div>
+                        <div class="object-expand-point bc"></div>
+                        <div class="object-expand-point tr"></div>
+                        <div class="object-expand-point mr"></div>
+                        <div class="object-expand-point br"></div>
+                    </div>
+
+
+                    <!--<canvas id="fabric-canvas-edit" width="960" height="700"></canvas>-->
+
+                    <!--<ul class="slide-controls">-->
+                        <!--<li class="slide-control">-->
+                            <!--<a class="btn-slide" href="" bz-confirm="removeSlide()" message="'Удалить слайд ?'|translate"-->
+                               <!--title="{{'Удалить слайд ?'|translate}}" class=""><i class="fa fa-trash"></i></a>-->
+                        <!--</li>-->
+                        <!--<li class="slide-control">-->
+                            <!--<a title="{{'Цвет фона'|translate}}" ng-init="canvasBackgroundColorSelect=false" ng-click="canvasBackgroundColorSelect = !canvasBackgroundColorSelect" class="btn-slide" href=""><i class="fa fa-tint"></i></a>-->
+                            <!--<div ng-show="canvasBackgroundColorSelect" class="popover left fade in" style="display: block; left: -57px; top: -10px">-->
+                                <!--<div class="arrow"></div>-->
+                                <!--<div class="popover-inner">-->
+                                    <!--<h3 class="popover-title">{{'Цвет фона'|translate}}</h3>-->
+                                    <!--<div class="popover-content">-->
+                                        <!--&lt;!&ndash;<div class="form-group col-xs-6">&ndash;&gt;-->
+                                        <!--<input ng-click="hideCanvasBackgroundColorSelect()" type="color"  class="color-picker" ng-model="slideBackgroundColor">-->
+                                        <!--<a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="slideBackgroundColor = '';canvasBackgroundColorSelect = false">-->
+                                            <!--<i class="fa fa-undo"></i>-->
+                                        <!--</a>-->
+                                        <!--<br/>-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="form-group col-xs-6">&ndash;&gt;-->
+                                        <!--<label title="{{'Применять ко всем слайдам'|translate}}" class="use-on-all">-->
+                                            <!--<input type="checkbox" class="" ng-model="useOnAllSlides"> {{'для всех'|translate}}</label>-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <!--<li class="slide-control">-->
+                            <!--<a title="{{'Фоновое изображение'|translate}}" ng-init="slideBackgroundImageSelect = false" ng-click="slideBackgroundImageSelect = !slideBackgroundImageSelect" class="btn-slide" href=""><i class="fa fa-picture-o"></i></a>-->
+                            <!--<div ng-show="slideBackgroundImageSelect" class="popover left fade in" ng-style="{'top': slideBackgroundImage ? '-35px' : '0'}" style="display: block;left:-148px;top:-10px;">-->
+                                <!--<div class="arrow"></div>-->
+                                <!--<div class="popover-inner">-->
+                                    <!--<h3 class="popover-title">{{'Фоновое изображение'|translate}}</h3>-->
+                                    <!--<div class="popover-content background-image-select">-->
+                                        <!--<div class="form-group col-xs-6">-->
+                                            <!--<label for="background-size">{{'Размер'|translate}}:</label>-->
+                                            <!--<select id="background-size" ng-model="slideBackgroundSize" class="background-size">-->
+                                                <!--<option value="cover">{{'Растянуть'|translate}}</option>-->
+                                                <!--<option value="-->
+                                                <!--contain">{{'Вписать'|translate}}</option>-->
+                                                <!--<option value="initial">{{'Оригинал'|translate}}</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+
+                                        <!--<div ng-show="!slideBackgroundImage">-->
+                                            <!--<div bz-uploader="$config.resource('/pages?action=upload')" text="{{uploaderText}}"-->
+                                                 <!--ng-model="page.files" autoupload="true" errors="errors">-->
+
+                                                <!--<div class="alert alert-danger" ng-repeat="error in errors" ng-switch on="error.code">-->
+                                                        <!--<span ng-switch-when="8">-->
+                                                            <!--{{'Неверный формат файла. Разрешенные форматы'|translate}}:-->
+                                                            <!--<span ng-repeat="ext in error.allowed_extensions">{{ext}}<span ng-if="!$last">,</span> </span>-->
+                                                        <!--</span>-->
+                                                    <!--<span ng-switch-when="1">{{'Перевышен лимит рамера файла'|translate}}</span>-->
+                                                    <!--<div ng-switch-default>{{'Ошибка загрузки'}}</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<div ng-show="slideBackgroundImage" class="gallery">-->
+                                            <!--<div class="item">-->
+                                                <!--<a target="_blank" href="" ng-href="{{slideBackgroundImage}}">-->
+                                                    <!--<img width="80px" ng-src="{{slideBackgroundImage}}"/>-->
+                                                <!--</a>-->
+                                                <!--<div class="details">-->
+                                                    <!--<a class="action" title="{{'Удалить'|translate}}" ng-click="slideBackgroundImage=''" href="">-->
+                                                        <!--<i class="fa fa-trash-o"></i></a>-->
+                                                    <!--<a target="_blank" class="action" href="" ng-href="{{slideBackgroundImage}}">-->
+                                                        <!--<i class="fa fa-eye"></i>-->
+                                                    <!--</a>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!--<button type="button" title="{{'Добавить слайд'|translate}}" ng-click="addVSlide()" class="btn btn-add-vertical"><i class="fa fa-plus"></i></button>-->
+                    <!--<button type="button" title="{{'Добавить слайд'|translate}}" ng-click="addHSlide()" class="btn btn-add-horizontal"><i class="fa fa-plus"></i></button>-->
+                    <!--<div class="navigate-controls">-->
+                        <!--<div title="{{'Предыдущий слайд'|translate}}" ng-click="prevVSlide()" ng-class="{enabled: currentVSlide > 0}" class="navigate-left"></div>-->
+                        <!--<div title="{{'Следующий слайд'|translate}}" ng-click="nextVSlide()" ng-class="{enabled: currentVSlide < slidesVCount}" class="navigate-right"></div>-->
+                        <!--<div title="{{'Предыдущий слайд'|translate}}" ng-click="prevHSlide()" ng-class="{enabled: currentHSlide > 0}" class="navigate-up"></div>-->
+                        <!--<div title="{{'Следующий слайд'|translate}}" ng-click="nextHSlide()" ng-class="{enabled: currentHSlide < slidesHCount}" class="navigate-down"></div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

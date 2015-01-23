@@ -1,0 +1,534 @@
+.angular-slides-editor {
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+
+
+    *[draggable=true] {
+        -moz-user-select:none;
+        -khtml-user-drag: element;
+        cursor: move;
+    }
+
+    .full-screen {
+        border-radius: 0 0 0 2px;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+
+    /*editor*/
+    .editor-container {
+        height: 100%;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        .side-bar {
+            background: none repeat scroll 0 0 #333;
+            transition: all 0.25s ease 0s;
+            z-index: 10;
+            width: 250px;
+            padding: 0;
+            bottom: 0;
+            height: 100%;
+            //      height: 700px;
+            left: 0;
+            margin: 0;
+            position: absolute;
+            top: 0;
+
+            /* global-controls, top on side bar */
+            .global-controls {
+                background-color: #A1A1A1;
+                width: 100%;
+                height: 80px;
+                color: #fff;
+                .btn-back {
+                    color: #fff;
+                    font-size: 38px;
+                }
+                .actions-set {
+                    margin: 5px 0;
+                    .actions {
+                        text-align: left;
+                        display: inline-block;
+                        a {
+                            text-align: center;
+                            margin: 0;
+                            height: 20px;
+                            width: 20px;
+                            i {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .instruments {
+                margin: 10px 5px;
+            }
+            .object-parameters {
+                margin: 10px 5px;
+
+                .form-group {
+                    label {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+
+
+        .editor {
+            margin-left: 0;
+            padding-left: 0;
+            .slide {
+            }
+            .canvas-wrapper {
+                bottom: 0;
+                height: 700px;
+                left: 0;
+                margin: auto;
+                position: fixed;
+                right: 0;
+                top: 0;
+                width: 960px;
+                border: 1px dashed red;
+            }
+            .canvas-container {
+                position:relative;
+            }
+        }
+    }
+
+
+    /*preview*/
+    .preview-container {
+        max-width: 960px;
+        min-width: 480px;
+        height: 700px;
+        position: relative;
+        margin: 0 auto;
+
+        .slide.preview {
+            background-repeat: no-repeat;
+            background-position: center center;
+
+            .canvas-wrapper {
+                border: 1px dashed red;
+                canvas {
+                    width: 100% !important;
+                    height: 100% !important;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+    .btn-ctrl {
+        a {
+            color: #fff;
+            display: inline-block;
+            text-align: center;
+            margin: 5px;
+            padding: 1px;
+            height: 20px;
+            width: 20px;
+        }
+        a:hover {
+            padding: 0px;
+            border: 1px solid #ffffff;
+            text-decoration: none;
+        }
+        a.enabled {
+            background-color: #c0c0c0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+    /* slide navigation and controls */
+    .slide-controls {
+        margin: 0;
+        position: absolute;
+        right: -32px;
+        top: 0;
+        li.slide-control {
+            font-size: 18px;
+            list-style: outside none none;
+            opacity: 0.5;
+            text-align: center;
+            background-color: #A1A1A1;
+            a.btn-slide {
+                color: #ffffff;
+                padding: 4px 7px;
+                display: inline-flex;
+                text-decoration: none;
+            }
+            .color-picker {
+                width: 20px;
+                padding: 0;
+                margin: 0;
+                border: none;
+            }
+            a.btn-reset {
+                color: #333;
+                display: inline-block;
+                line-height: 22px;
+                margin: 0;
+                padding: 0;
+                vertical-align: top;
+            }
+        }
+        li.slide-control:hover {
+            background-color: #141414;
+            opacity: 1;
+        }
+
+
+
+        .background-image-select {
+            font-size: 14px;
+            label {
+                font-size: 14px;
+            }
+        }
+
+        label.use-on-all {
+            font-size: 12px;
+            line-height: 12px;
+
+            input {
+                vertical-align: text-bottom;
+            }
+        }
+    }
+
+    .btn-add-horizontal {
+        border-radius: 50%;
+        font-size: 30px;
+        line-height: 34px;
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+    }
+    .btn-add-vertical {
+        border-radius: 50%;
+        font-size: 30px;
+        line-height: 36px;
+        position: fixed;
+        right: 50px;
+        top: 50%;
+    }
+
+    .navigate-controls {
+        bottom: 10px;
+        height: 110px;
+        position: fixed;
+        right: 10px;
+        width: 110px;
+        z-index: 30;
+
+        div {
+            border: 12px solid transparent;
+            height: 0;
+            opacity: 0.05;
+            position: absolute;
+            transform: scale(0.9999);
+            transition: all 0.2s ease 0s;
+            width: 0;
+        }
+        .enabled {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        .navigate-up {
+            border-bottom-color: #000;
+            border-bottom-width: 22px;
+            left: 42px;
+        }
+        .navigate-down {
+            border-top-color: #000;
+            border-top-width: 22px;
+            left: 42px;
+            top: 74px;
+        }
+        .navigate-right {
+            border-left-color: #000;
+            border-left-width: 22px;
+            left: 74px;
+            top: 42px;
+        }
+        .navigate-left {
+            border-right-color: #000;
+            border-right-width: 22px;
+            top: 42px;
+        }
+
+        div.navigate-up.enabled:hover {
+            border-bottom-color: #707070;
+        }
+        div.navigate-down.enabled:hover {
+            border-top-color: #707070;
+        }
+        div.navigate-left.enabled:hover {
+            border-right-color: #707070;
+        }
+        div.navigate-right.enabled:hover {
+            border-left-color: #707070;
+        }
+    }
+
+
+
+
+
+    /* text edit */
+    .text-edit {
+        textarea {
+            width: 236px;
+            resize: vertical;
+        }
+    }
+    /* text edit - buttons */
+    .btn-ctrl.text-controls-additional {
+        margin-right: 7px;
+        margin-bottom: 18px;
+        a {
+            margin: 1px;
+            height: 20px;
+            width: 20px;
+            i {
+                font-size: 18px;
+            }
+        }
+        a:first-child {
+            margin-left: 0;
+        }
+    }
+    /* text edit - font */
+    .font-select {
+        margin: 0 0 18px;
+        padding: 0 7px 0 0;
+        select {
+            width: 100%;
+        }
+        .font-icon {
+            font-size: 20px;
+        }
+    }
+
+    /* global-controls scale */
+    .scale-control {
+        .scales {
+            text-align: center;
+            .scale {
+                width: 80px;
+                display: inline-block;
+                label {
+                    color: #fff;
+                    font-weight: bold;
+                }
+                .value {
+                    border: 0 none;
+                    color: #333;
+                    background-color: #fff;
+                    display: inline-block;
+                    margin: 0;
+                    vertical-align: middle;
+                    padding: 0 5px;
+                    width: 36px;
+                }
+            }
+        }
+    }
+
+    /* global-controls - colors */
+    .color-picker-control {
+        input {
+            display: inline-block;
+            height: 20px;
+            margin: 0 0 0 10px;
+            padding: 1px;
+            vertical-align: middle;
+            width: 20px;
+        }
+        .btn-ctrl {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+    /* global-controls - ranges */
+    .range-control {
+        input {
+            display: inline-block;
+            vertical-align: middle;
+            width: 160px;
+        }
+        .value {
+            background-color: transparent;
+            border: 0 none;
+            color: #fff;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            vertical-align: middle;
+            width: 45px;
+            input {
+                color: #000;
+                font-size: 14px;
+                line-height: 14px;
+                margin: 0;
+                padding: 0;
+                width: 25px;
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    .btn-ctrl {
+        a {
+            color: #fff;
+            display: inline-block;
+            text-align: center;
+            margin: 5px;
+            padding: 1px;
+            height: 20px;
+            width: 20px;
+        }
+        a:hover {
+            padding: 0px;
+            border: 1px solid #ffffff;
+            text-decoration: none;
+        }
+        a.enabled {
+            background-color: #c0c0c0;
+        }
+    }
+    .btn-ctrl.instruments {
+        list-style: none;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+        li {
+        }
+        a.main-control {
+            height: 80px;
+            width: 110px;
+            position: relative;
+            i {
+                font-size: 26px;
+                margin-top: 15px;
+            }
+        }
+        i.fa-triangle {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-bottom: 22px solid #ffffff;
+        }
+        i.fa-line {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background:
+            linear-gradient(to top left,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0) calc(50% - 2px),
+            rgba(255,255,255,1) 50%,
+            rgba(255,255,255,0) calc(50% + 2px),
+            rgba(255,255,255,0) 100%);
+        }
+    }
+
+    .history-container {
+        height: 100%;
+        width: 100%;
+        background-color: #c0c0c0;
+
+        ul {
+            overflow-y: auto;
+        }
+
+        li.active {
+            background-color: #A1A1A1;
+        }
+    }
+    //
+
+
+    /* new */
+    /* object controls */
+    .object-expand-point {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border: 1px solid #000000;
+    }
+    .object-expand-point.tl {
+        cursor: ns-resize;
+        top: -3px;
+        left: -3px;
+    }
+    .object-expand-point.ml {
+        top: calc(50%-3px);
+        left: -3px;
+    }
+    .object-expand-point.bl {
+        bottom: -3px;
+        left: -3px;
+    }
+    .object-expand-point.tc {
+        top: -3px;
+        left: calc(50%-3px);
+    }
+    .object-expand-point.mc {
+        top: calc(50%-3px);
+        left: calc(50%-3px);
+    }
+    .object-expand-point.bc {
+        bottom: -3px;
+        left: calc(50%-3px);
+    }
+    .object-expand-point.tr {
+        top: -3px;
+        right: -3px;
+    }
+    .object-expand-point.mr {
+        top: calc(50%-3px);
+        right: -3px;
+    }
+    .object-expand-point.br {
+        bottom: -3px;
+        right: -3px;
+    }
+}
