@@ -9,11 +9,11 @@
 
 
 
-    *[draggable=true] {
-        -moz-user-select:none;
-        -khtml-user-drag: element;
-        cursor: move;
-    }
+//    *[draggable=true][contenteditable=false] {
+//        -moz-user-select:none;
+//        -khtml-user-drag: element;
+//        cursor: move;
+//    }
 
     .full-screen {
         border-radius: 0 0 0 2px;
@@ -21,7 +21,6 @@
         right: 0;
         top: 0;
     }
-
 
     /*editor*/
     .editor-container {
@@ -31,14 +30,14 @@
         background-position: center center;
 
         .side-bar {
-            background: none repeat scroll 0 0 #333;
+            background-color:#333;
             transition: all 0.25s ease 0s;
             z-index: 10;
             width: 250px;
             padding: 0;
             bottom: 0;
-            height: 100%;
-            //      height: 700px;
+//            height: 100%;
+            height: 600px;
             left: 0;
             margin: 0;
             position: absolute;
@@ -489,15 +488,28 @@
     /* new */
     /* object controls */
     .object {
-        resize:both;
-        overflow: hidden;
-    
+//        resize:both;
+//        overflow: hidden;
+        position: absolute;
+
+        img {
+//            resize:both;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+        }
+
         .object-expand-point {
             display: none;
             position: absolute;
-            width: 6px;
-            height: 6px;
-            border: 1px solid #000000;
+            width: 10px;
+            height: 10px;
+            z-index: 10;
+            border: 1px solid red;
         }
         .object-expand-point.tl {
             cursor: nw-resize;
@@ -539,15 +551,34 @@
             bottom: -3px;
             right: -3px;
         }
-        .content {
-        }
+    }
+
+    .object.edit {
+        -webkit-user-select: text;  /* Chrome all / Safari all */
+        -moz-user-select: text;     /* Firefox all */
+        -ms-user-select: text;      /* IE 10+ */
+        /* No support for these yet, use at own risk */
+        -o-user-select: text;
+        user-select: text;
+        cursor: text;
+    }
+    .object.move {
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        /* No support for these yet, use at own risk */
+        -o-user-select: none;
+        user-select: none;
+        cursor: move;
     }
     
-   /* .object:focus  {
+    .object:focus  {
         .object-expand-point {
             display: block;
         }
+        border: 1px dashed red;
         outline: none;
-    }*/
+//        outline: 1px dashed red;
+    }
     
 }

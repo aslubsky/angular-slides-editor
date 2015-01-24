@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                 src: [
                     'src/scripts/01-*.js',
                     'src/scripts/02-*.js',
-                    //'src/scripts/03-*.js',
+                    'src/scripts/03-*.js',
                     'src/scripts/04-*.js',
                     'src/scripts/05-*.js',
                     //'src/scripts/06-*.js',

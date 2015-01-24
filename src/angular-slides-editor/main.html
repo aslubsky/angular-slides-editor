@@ -25,8 +25,8 @@
                                ng-click="actionReplay('undo')">
                                 <i class="fa fa-history"></i>
                             </a>
-                            <a class="btn-ctrl actions" href="" bz-confirm="removeSlide()" message="'Удалить слайд ?'|translate"
-                               title="{{'Удалить слайд ?'|translate}}" class=""><i class="fa fa-trash"></i></a>
+                            <!--<a class="btn-ctrl actions" href="" bz-confirm="removeSlide()" message="'Удалить слайд ?'|translate"-->
+                               <!--title="{{'Удалить слайд ?'|translate}}" class=""><i class="fa fa-trash"></i></a>-->
                         </div>
                     </div>
                     <div class="actions-set" ng-show="hideInstruments">
@@ -37,11 +37,11 @@
                                 <i class="fa fa-history"></i>
                             </a>
                             <a href="" title="{{'Дублировать'|translate}}" class=""
-                               ng-click="duplicate()">
+                               ng-click="duplicateCurrentObject()">
                                 <i class="fa fa-files-o"></i>
                             </a>
                             <a href="" title="{{'Удалить'|translate}}" class=""
-                               ng-click="removeCurrent()">
+                               ng-click="removeCurrentObject()">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>
@@ -70,25 +70,25 @@
                     </a>
                 </li>
                 <li>
-                    <a ng-click="imageSrc = '/themes/default/assets/img/resources/default-image.png'; addImage(imageSrc)" href="" class="main-control">
+                    <a ng-click="addImage()" href="" class="main-control">
                         <i class="fa fa-picture-o"></i><br/>{{'Изображение'|translate}}
                     </a>
                 </li>
                 <li>
-                    <a ng-click="imageSrc = '/themes/default/assets/img/resources/default-image.png'; addImage(imageSrc)" href="" class="main-control">
+                    <a ng-click="addImage()" href="" class="main-control">
                         <i class="fa fa-leaf"></i><br/>{{'SVG'|translate}}
                     </a>
                 </li>
-                <li>
-                    <a href="" class="main-control" ng-click="addRect()">
-                        <i class="fa fa-square"></i><br/>{{'Прямоугольник'|translate}}
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="main-control" ng-click="addCircle()">
-                        <i class="fa fa-circle"></i><br/>{{'Круг'|translate}}
-                    </a>
-                </li>
+                <!--<li>-->
+                    <!--<a href="" class="main-control" ng-click="addRect()">-->
+                        <!--<i class="fa fa-square"></i><br/>{{'Прямоугольник'|translate}}-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="" class="main-control" ng-click="addCircle()">-->
+                        <!--<i class="fa fa-circle"></i><br/>{{'Круг'|translate}}-->
+                    <!--</a>-->
+                <!--</li>-->
                 <!--<li>-->
                 <!--<a href="" class="main-control" ng-click="addTriangle()">-->
                 <!--<i class="fa-triangle"></i><br/>{{'Треугольник'|translate}}-->
@@ -347,22 +347,27 @@
             <div class="slide">
                 <div class="canvas-wrapper">
 
-                    <div class="object" slides-editor-object tabindex="1" draggable="true" style="z-index: 4;background-color: red; width: 100px; height: 100px; position: absolute; left: 10px; top: 50px">
-                        <!--div class="object-expand-point tl"></div>
-                        <div class="object-expand-point ml"></div>
-                        <div class="object-expand-point bl"></div>
-                        <div class="object-expand-point tc"></div>
-                        <div class="object-expand-point bc"></div>
-                        <div class="object-expand-point tr"></div>
-                        <div class="object-expand-point mr"></div>
-                        <div class="object-expand-point br"></div>
-                        <div class="content">Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor </div-->
-                        Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor
-                    </div>
+                    <!--<div class="object move" contenteditable="false" slides-editor-object tabindex="1" draggable="true" style="z-index: 2;background-color: red; width: 100px; height: 100px; left: 10px; top: 50px">-->
+                        <!--Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor-->
+                    <!--</div>-->
 
+                    <div class="object move" tabindex="2" slides-editor-object style="z-index: 1; width: 400px; height: 400px; left: 200px; top: 50px">
+                        <div class="object-expand-point tl"></div>
+                        <!--<div class="object-expand-point ml"></div>-->
+                        <div class="object-expand-point bl"></div>
+                        <!--<div class="object-expand-point tc"></div>-->
+                        <!--<div class="object-expand-point bc"></div>-->
+                        <div class="object-expand-point tr"></div>
+                        <!--<div class="object-expand-point mr"></div>-->
+                        <div class="object-expand-point br"></div>
+                       <img src="http://lorempixel.com/400/400/cats/"/>
+                   </div>
+
+                   <!--<div class="object move" slides-editor-object tabindex="3" style="z-index: 3;background-color: grey; width: 200px; height: 200px; left: 50px; top: 50px">-->
+                        <!--<img src="cat.svg"/>-->
+                    <!--</div>-->
 
                     <!--<canvas id="fabric-canvas-edit" width="960" height="700"></canvas>-->
-
                     <!--<ul class="slide-controls">-->
                         <!--<li class="slide-control">-->
                             <!--<a class="btn-slide" href="" bz-confirm="removeSlide()" message="'Удалить слайд ?'|translate"-->
