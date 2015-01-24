@@ -488,50 +488,66 @@
 
     /* new */
     /* object controls */
-    .object-expand-point {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        border: 1px solid #000000;
+    .object {
+        resize:both;
+        overflow: hidden;
+    
+        .object-expand-point {
+            display: none;
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border: 1px solid #000000;
+        }
+        .object-expand-point.tl {
+            cursor: nw-resize;
+            top: -3px;
+            left: -3px;
+        }
+        .object-expand-point.ml {
+            cursor: w-resize;
+            top: calc(50%-3px);
+            left: -3px;
+        }
+        .object-expand-point.bl {
+            cursor: sw-resize;
+            bottom: -3px;
+            left: -3px;
+        }
+        .object-expand-point.tc {
+            cursor: n-resize;
+            top: -3px;
+            left: calc(50%-3px);
+        }
+        .object-expand-point.bc {
+            cursor: s-resize;
+            bottom: -3px;
+            left: calc(50%-3px);
+        }
+        .object-expand-point.tr {
+            cursor: ne-resize;
+            top: -3px;
+            right: -3px;
+        }
+        .object-expand-point.mr {
+            top: calc(50%-3px);
+            cursor: e-resize;
+            right: -3px;
+        }
+        .object-expand-point.br {
+            cursor: se-resize;
+            bottom: -3px;
+            right: -3px;
+        }
+        .content {
+        }
     }
-    .object-expand-point.tl {
-        cursor: nw-resize;
-        top: -3px;
-        left: -3px;
-    }
-    .object-expand-point.ml {
-        cursor: w-resize;
-        top: calc(50%-3px);
-        left: -3px;
-    }
-    .object-expand-point.bl {
-        cursor: sw-resize;
-        bottom: -3px;
-        left: -3px;
-    }
-    .object-expand-point.tc {
-        cursor: n-resize;
-        top: -3px;
-        left: calc(50%-3px);
-    }
-    .object-expand-point.bc {
-        cursor: s-resize;
-        bottom: -3px;
-        left: calc(50%-3px);
-    }
-    .object-expand-point.tr {
-        cursor: ne-resize;
-        top: -3px;
-        right: -3px;
-    }
-    .object-expand-point.mr {
-        top: calc(50%-3px);
-        cursor: e-resize;
-        right: -3px;
-    }
-    .object-expand-point.br {
-        cursor: se-resize;
-        bottom: -3px;
-        right: -3px;
-    }
+    
+   /* .object:focus  {
+        .object-expand-point {
+            display: block;
+        }
+        outline: none;
+    }*/
+    
 }

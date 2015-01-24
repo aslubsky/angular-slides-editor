@@ -17,6 +17,8 @@
 
 var layerX = 0;
 var layerY = 0;
+var strtDragObject = false;
+var strtResizeObject = false;
 
 app.directive('angularSlidesEditor', ['$compile', '$q', '$parse',
     function ($compile, $q, $parse) {
@@ -83,7 +85,7 @@ app.directive('slidesEditorObject', ['$compile', '$q', '$parse',
                     //console.log('dragstart', e);
                     e.dataTransfer.effectAllowed = 'move';  // See the section on the DataTransfer object.
                     //e.dataTransfer.effectAllowed = 'move';  // See the section on the DataTransfer object.
-                    this.style.opacity = '0.8';  // this / e.target is the source node.
+                    //this.style.opacity = '0.8';  // this / e.target is the source node.
                     //this.style.top = e.clientY+'px';
                     //this.style.left = e.clientX+'px';
                     e.dataTransfer.setData('Text', '1111'); // required otherwise doesn't work
@@ -94,7 +96,7 @@ app.directive('slidesEditorObject', ['$compile', '$q', '$parse',
                     //console.log('dragend', e, e.layerX, layerX);
                     this.style.left = (layerX - objLayerX ) + 'px';
                     this.style.top = (layerY - objLayerY) + 'px';
-                    this.style.opacity = '1';  // this / e.target is the source node.
+                    //this.style.opacity = '1';  // this / e.target is the source node.
                 });
 
 
