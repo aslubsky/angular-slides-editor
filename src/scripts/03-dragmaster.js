@@ -106,6 +106,11 @@ var dragMaster = (function () {
         if(e.target.classList.toString().indexOf('object-expand-point') != -1) {
             dragType = 'resize-' + e.target.classList.toString().replace('object-expand-point ', '');
         }
+
+        if (dragType == 'move' && dragObject.classList.contains('edit')) {// .hasAttribute('contenteditable') && dragObject.getAttribute('contenteditable') == 'true'
+            return;
+        }
+
         //console.log( dragObject.style.left, dragObject.offsetWidth);
         dragObjectRatio = dragObject.offsetWidth/dragObject.offsetHeight;
 
