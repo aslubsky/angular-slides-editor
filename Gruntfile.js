@@ -35,7 +35,7 @@ module.exports = function (grunt) {
             styles: {
                 files: [
                     {
-                        src: './src/styles/angular-slides-editor.less',
+                        src: './src/styles/main.less',
                         dest: './dist/angular-slides-editor.less'
                     }
                 ]
@@ -43,8 +43,8 @@ module.exports = function (grunt) {
         },
         uglify: {
             js: {
-                src: ['./dist/ng-table.js'],
-                dest: './dist/ng-table.min.js',
+                src: ['./dist/angular-slides-editor.js'],
+                dest: './dist/angular-slides-editor.min.js',
                 options: {
                     banner: '<%= banner %>',
                     sourceMap: function (fileName) {

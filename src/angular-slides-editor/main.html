@@ -9,6 +9,7 @@
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
+
     <div class="editor-container" ng-style="{'background-image':'url('+slideBackgroundImage+')', 'background-size': slideBackgroundSize, 'background-color': slideBackgroundColor}">
         <div class="side-bar">
             <div class="global-controls">
@@ -62,7 +63,6 @@
                 </div>
             </div>
 
-
             <ul ng-show="!hideInstruments" class="instruments btn-ctrl">
                 <li>
                     <a href="" class="main-control" ng-click="addText()">
@@ -104,29 +104,29 @@
 
 
             <div ng-show="hideInstruments" class="object-parameters">
-                <div class="global-parameters" ng-show="figuresCtrl">
-                    <!--<div ng-show="objectType == 'line'" class="form-group col-lg-9">-->
-                    <!--<label for="text-stroke-width">{{'Толщина линий'|translate}}:</label>-->
-                    <!--<input type="range" value="1" min="1" max="5" id="text-stroke-width" class="form-control"-->
-                    <!--ng-model="strokeWidth">-->
+                <!--<div class="global-parameters" ng-show="figuresCtrl">-->
+                    <!--&lt;!&ndash;<div ng-show="objectType == 'line'" class="form-group col-lg-9">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<label for="text-stroke-width">{{'Толщина линий'|translate}}:</label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input type="range" value="1" min="1" max="5" id="text-stroke-width" class="form-control"&ndash;&gt;-->
+                    <!--&lt;!&ndash;ng-model="strokeWidth">&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="form-group col-lg-12 range-control">-->
+                        <!--<label for="opacity">{{'Прозрачность'|translate}}:</label>-->
+                        <!--<input id="opacity" value="100" min="0" step="1" max="100" type="range" ng-model="opacity">-->
+                        <!--<span class="value">{{opacity}} %</span>-->
                     <!--</div>-->
-                    <div class="form-group col-lg-12 range-control">
-                        <label for="opacity">{{'Прозрачность'|translate}}:</label>
-                        <input id="opacity" value="100" min="0" step="1" max="100" type="range" ng-model="opacity">
-                        <span class="value">{{opacity}} %</span>
-                    </div>
-                    <div class="form-group col-lg-12 color-picker-control">
-                        <label>{{'Цвет заливки'|translate}}:
-                            <input type="color" value="" id="fill-color" size="10" class="form-control"
-                                   ng-model="fill">
-                            <div class="btn-ctrl">
-                                <a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="fill = '#000000'">
-                                    <i class="fa fa-undo"></i>
-                                </a>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+                    <!--<div class="form-group col-lg-12 color-picker-control">-->
+                        <!--<label>{{'Цвет заливки'|translate}}:-->
+                            <!--<input type="color" value="" id="fill-color" size="10" class="form-control"-->
+                                   <!--ng-model="fill">-->
+                            <!--<div class="btn-ctrl">-->
+                                <!--<a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="fill = '#000000'">-->
+                                    <!--<i class="fa fa-undo"></i>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div ng-show="imageCtrl">
                     <div ng-show="isDefaultImage()">
@@ -169,7 +169,7 @@
                 </div>
 
                 <div ng-show="textCtrl">
-                    <div class="">
+                    <div class="clearfix">
                         <div class="pull-left btn-ctrl text-controls-additional">
                             <a href="" title="{{'Жирный'|translate}}" class=""
                                ng-click="fontWeight = fontWeight == 'bold' ? '' : 'bold'"
@@ -182,13 +182,13 @@
                                 <i class="fa fa-italic"></i>
                             </a>
                             <a href="" title="{{'Подчерктнутый'|translate}}" class="" id="text-cmd-underline"
-                               ng-click="toggleUnderline()"
-                               ng-class="{'enabled': isUnderline()}">
+                               ng-click="textDecoration = textDecoration == 'underline' ? '' : 'underline'"
+                               ng-class="{'enabled': textDecoration == 'underline'}">
                                 <i class="fa fa-underline"></i>
                             </a>
                             <a href="" title="{{'Зачерктнутый'|translate}}" class="" id="text-cmd-linethrough"
-                               ng-click="toggleLinethrough()"
-                               ng-class="{'enabled': isLinethrough()}">
+                               ng-click="textDecoration = textDecoration == 'line-through' ? '' : 'line-through'"
+                               ng-class="{'enabled': textDecoration == 'line-through'}">
                                 <i class="fa fa-strikethrough"></i>
                             </a>
                         </div>
@@ -238,9 +238,9 @@
                     <div class="form-group col-lg-12 color-picker-control">
                         <label>{{'Цвет текста'|translate}}:
                             <input type="color" value="" id="text-lines-bg-color" size="10" class="form-control"
-                                   ng-model="textFill">
+                                   ng-model="color">
                             <div class="btn-ctrl">
-                                <a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="textFill = '#000000'">
+                                <a title="{{'По умолчанию'|translate}}" class="btn-reset" href="" ng-click="color = '#000000'">
                                     <i class="fa fa-undo"></i>
                                 </a>
                             </div>
@@ -268,10 +268,10 @@
                     </div>
                     <div class="form-group col-lg-12 range-control">
                         <label for="text-line-height">{{'Интервал'|translate}}:</label>
-                        <input type="range" value="" min="0" max="10" step="0.1" id="text-line-height"
+                        <input type="range" value="" min="1" max="120" step="1" id="text-line-height"
                                class=""
                                ng-model="lineHeight">
-                        <span class="value"><input type="text" class="" ng-model="lineHeight"></span>
+                        <span class="value"><input type="text" class="" ng-model="lineHeight"> px</span>
                     </div>
                     <div class="form-group col-lg-12 range-control">
                         <label for="text-padding">{{'Отступ'|translate}}:</label>
@@ -282,19 +282,19 @@
                     </div>
                 </div>
 
-                <div class="form-group col-lg-12 scale-control">
-                    <label>{{'Масштаб'|translate}}:</label>
-                    <div class="scales">
-                        <div class="scale">
-                            <label>X:</label>
-                            <input type="text" min="1" class="value" ng-model="selectedObjectScaleX"> %
-                        </div>
-                        <div class="scale">
-                            <label>Y:</label>
-                            <input type="text" min="1" class="value" ng-model="selectedObjectScaleY"> %
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="form-group col-lg-12 scale-control">-->
+                    <!--<label>{{'Масштаб'|translate}}:</label>-->
+                    <!--<div class="scales">-->
+                        <!--<div class="scale">-->
+                            <!--<label>X:</label>-->
+                            <!--<input type="text" min="1" class="value" ng-model="selectedObjectScaleX"> %-->
+                        <!--</div>-->
+                        <!--<div class="scale">-->
+                            <!--<label>Y:</label>-->
+                            <!--<input type="text" min="1" class="value" ng-model="selectedObjectScaleY"> %-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
 
             <!--<div class="clearfix"></div>-->
@@ -347,18 +347,30 @@
             <div class="slide">
                 <div class="canvas-wrapper">
 
-                    <!--<div class="object move" contenteditable="false" slides-editor-object tabindex="1" draggable="true" style="z-index: 2;background-color: red; width: 100px; height: 100px; left: 10px; top: 50px">-->
-                        <!--Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor-->
-                    <!--</div>-->
-
-                    <div class="object move" tabindex="2" slides-editor-object style="z-index: 1; width: 400px; height: 400px; left: 200px; top: 50px">
-                        <div class="object-expand-point tl"></div>
+                    <!--<div class="object move" contenteditable="false" slides-editor-object tabindex="1" style="z-index: 2;background-color: red; width: 100px; height: 100px; left: 10px; top: 50px">-->
+                        <!--<div class="object-expand-point tl"></div>-->
                         <!--<div class="object-expand-point ml"></div>-->
-                        <div class="object-expand-point bl"></div>
+                        <!--<div class="object-expand-point bl"></div>-->
                         <!--<div class="object-expand-point tc"></div>-->
                         <!--<div class="object-expand-point bc"></div>-->
-                        <div class="object-expand-point tr"></div>
+                        <!--<div class="object-expand-point tr"></div>-->
                         <!--<div class="object-expand-point mr"></div>-->
+                        <!--<div class="object-expand-point br"></div>-->
+                        <!--<div class="content">-->
+                            <!--Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div contenteditable="false" style="z-index: 2; background-color: rgb(233, 225, 189); width: 696px; height: 271px; left: 11px; top: 53px; font-size: 46px; line-height: 46px; text-align: left; font-family: comic sans ms; right: 251px; bottom: 374px; padding: 0px; color: rgb(164, 229, 87);" tabindex="1" slides-editor-object="" class="object move ng-scope active"> <div class="object-expand-point tl"></div> <div class="object-expand-point ml"></div> <div class="object-expand-point bl"></div> <div class="object-expand-point tc"></div> <div class="object-expand-point bc"></div> <div class="object-expand-point tr"></div> <div class="object-expand-point mr"></div> <div class="object-expand-point br"></div> <div class="content"> Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor Lorem ipsun dolor </div> </div>
+
+                    <div class="object move" tabindex="2" slides-editor-object style="z-index: 1; width: 400px; height: 400px; left: 200px; top: 200px">
+                        <div class="object-expand-point tl"></div>
+                        <div class="object-expand-point ml"></div>
+                        <div class="object-expand-point bl"></div>
+                        <div class="object-expand-point tc"></div>
+                        <div class="object-expand-point bc"></div>
+                        <div class="object-expand-point tr"></div>
+                        <div class="object-expand-point mr"></div>
                         <div class="object-expand-point br"></div>
                        <img src="http://lorempixel.com/400/400/cats/"/>
                    </div>

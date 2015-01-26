@@ -488,12 +488,9 @@
     /* new */
     /* object controls */
     .object {
-//        resize:both;
-//        overflow: hidden;
         position: absolute;
 
-        img {
-//            resize:both;
+        .content, img {
             width: 100%;
             height: 100%;
             position: absolute;
@@ -501,6 +498,10 @@
             right: 0;
             bottom: 0;
             top: 0;
+        }
+        .content {
+            overflow: hidden;
+            text-decoration: inherit;
         }
 
         .object-expand-point {
@@ -572,7 +573,7 @@
         cursor: move;
     }
     
-    .object:focus  {
+    .object.active,.object:hover  {
         .object-expand-point {
             display: block;
         }
